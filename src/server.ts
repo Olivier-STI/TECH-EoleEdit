@@ -1,10 +1,10 @@
 import express, {Application, Request, Response} from 'express'
+import Upload from './Routes/UploadFile';
 
-const app : Application = express();
+const app: Application = express();
 const PORT : Number = 5000;
 
-app.get('/', (req : Request, res : Response) => {
-    res.send('Hello World')
-});
+Upload(app);        // Upload Request
+
 
 app.listen(PORT, () => console.log('Server listen on ' + PORT))
