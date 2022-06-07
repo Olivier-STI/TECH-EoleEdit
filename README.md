@@ -1,4 +1,4 @@
-# Features/videoPlayer branch
+# server branch
 
 # TECH-EoleEdit
 
