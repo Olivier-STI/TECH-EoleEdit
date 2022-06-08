@@ -3,7 +3,7 @@ import multer from 'multer';
 import CompressVideo from '../Lib/CompressVideo';
 import Videos from '../models/video';
 import LogServer from '../Lib/LogServer';
-
+import { Port, host } from '../globals/metadata';
 
 //Set videos destinations
 const fileStorage = multer.diskStorage({
@@ -42,7 +42,7 @@ function Upload(app: Application) {
                     const videos = new Videos({
                         title: Title,
                         description: Description,
-                        videoPath : "./videos/Compressed-" + req.file?.originalname
+                        videoPath : "http://" + host + ':' + Port + "/Compressed-" + req.file?.originalname
                     })
                     videos.save()
                         .then((result: any) => {
