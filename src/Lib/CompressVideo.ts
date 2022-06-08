@@ -1,28 +1,30 @@
 import DeleteFile from "./DeleteFile";
+import LogServer from "./LogServer";
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-interface VideoSate {
+interface IVideoSate {
     (state: Boolean): void;
 }
 
-function CompressVideo(videoPath: string, callback : VideoSate) {
+//Compress the file to get a low-res versions
+function CompressVideo(videoPath: string, callback : IVideoSate) {
+    LogServer('Start compressing', 1)
     ffmpeg('./videos/' + videoPath)
-        .output('./videos/' + Date.now() + '-' + videoPath)
+        .output('./videos/' + 'Compressed-' + videoPath)
         .videoCodec('libx264')
         .audioCodec('aac')
         .on('error', function(err: any) {
-                console.log('An error occurred: ' + err.message);
-                callback(false)
-            })
+            LogServer(err.message, 2)
+            callback(false)
+        })
         .on('progress', function(progress : any) {
-                console.log('Compressing ...');
-                
-            })
+            LogServer('Compressing', 1)
+        })
         .on('end', function() {
-            console.log('Finished processing');
+            LogServer('Finished processing', 1);
             DeleteFile('./videos/' + videoPath)   
             callback(true)
         })

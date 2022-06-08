@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Olivier-STI/TECH-EoleEdit#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mongoose": "^6.3.6"
   },
   "devDependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
