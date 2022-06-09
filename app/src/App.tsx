@@ -1,12 +1,10 @@
+import VideoPlayer from "./Components/videoPlayer";
 import React from 'react';
-import { UploadForm } from './Components/UploadForm';
 
 function App() {
   return (
-    <div className="App">
-      <UploadForm/>
-    </div>
-  );
+    <VideoPlayer/>
+  ) 
 }
 
 export default App;
