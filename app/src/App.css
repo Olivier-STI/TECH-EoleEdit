@@ -14,7 +14,8 @@ body {
   }
   
   video {
-    width: 100%;
+    width: 50vh;
+    height: 50vh;
   }
   
   .video-wrapper {

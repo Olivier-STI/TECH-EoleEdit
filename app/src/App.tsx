@@ -3,7 +3,7 @@ import React from 'react';
 
 function App() {
   return (
-    <VideoPlayer/>
+    <VideoPlayer VideoPath={"http://127.0.0.1:5000/Compressed-IMG-0583.mp4"}/>
   ) 
 }
 
