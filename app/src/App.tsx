@@ -1,11 +1,10 @@
 import React from 'react';
+import { UploadForm } from './Components/UploadForm';
 
 function App() {
   return (
     <div className="App">
-      <text>
-        Hello
-      </text>
+      <UploadForm/>
     </div>
   );
 }
