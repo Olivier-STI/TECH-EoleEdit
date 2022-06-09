@@ -12,7 +12,7 @@ function DisplayOnCard(props : any) {
     return (
         <div style={{height : '10vh', width: '50vh', display: 'flex', flexDirection: 'row',
                     backgroundColor: 'grey', alignItems: 'center', justifyContent: 'center',
-                    margin: '1vh'}}>
+                    margin: '1vh'}} onClick={props.CardOnClick}>
             <div style={{margin : '1vh'}}>
                 <text>{props.Title}</text>
             </div>
@@ -26,29 +26,40 @@ function DisplayOnCard(props : any) {
     )
 }
 
+
 //fucntion how display all the video list
 const VideoList = () => {
     const  [listData, setlistData] = useState<any[]>([]);
+    const  [videoPath, setvideoPath] = useState('');
 
+    
     useEffect(() => {
-        let mounted = true
         getUploadedVideos((result : any) => {
-            if (mounted) {
+            if (result.data.status === 200) {
+                setlistData(result.data.data)
+            }
+        })
+        //Set interval to refresh the video list
+        const interval = setInterval(()=>{
+            getUploadedVideos((result : any) => {
                 if (result.data.status === 200) {
                     setlistData(result.data.data)
                 }
-            }
-        })
-        return () => {
-            mounted = false
-        }
+            })
+        },5000)
+             return()=>clearInterval(interval)
     }, []);
+    
+    function HandleCardOnClick(videoPath : string) {
+        setvideoPath(videoPath)
+        console.log(videoPath)
+    }
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
             {listData.map((data) => {
                 return (
-                    <DisplayOnCard Title={data.title} Description={data.description} Pathname={data.videoPath}/>
+                    <DisplayOnCard Title={data.title} Description={data.description} Pathname={data.videoPath} CardOnClick={() => HandleCardOnClick(data.videoPath)}/>
                 )
             })}
         </div>
