@@ -1,4 +1,4 @@
-# Features/videoList branch
+# Features/videoPlayer branch
 
 # TECH-EoleEdit
 

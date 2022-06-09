@@ -1,5 +1,4 @@
 import React from 'react';
-import VideoList from './Components/VideosList';
 
 function App() {
   return (
