@@ -1,10 +1,10 @@
 import React from 'react';
-import { UploadForm } from './Components/UploadForm';
+import VideoList from './Components/VideosList';
 
 function App() {
   return (
-    <div className="App">
-      <UploadForm/>
+    <div>
+      <VideoList/>
     </div>
   );
 }
