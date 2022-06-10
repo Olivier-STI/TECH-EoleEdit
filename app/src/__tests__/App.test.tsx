@@ -1,7 +1,8 @@
 import renderer from 'react-test-renderer';
 import {UploadForm} from '../Components/UploadForm'
 
-test('rend correctement', () => {
+test('test rendering', () => {
   const tree = renderer.create(<UploadForm/>).toJSON();
+
   expect(tree).toMatchSnapshot();
 });
