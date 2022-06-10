@@ -1,9 +1,12 @@
 import mongoose from "mongoose"
-//const dbURI = "mongodb+srv://<username>:<password>@reactapp.3vhou.mongodb.net/<dbname>?retryWrites=true&w=majority"
 
 function ConnectToDB() {
     //connect to mongoDb
-    const dbURI : string = "SECRET"
+    const Username : string = "SECRET";
+    const Password : string = "SECRET";
+    const DbName : string = 'SECRET';
+    const dbURI : string = "mongodb+srv://" + Username + ":" + Password + "@reactapp.3vhou.mongodb.net/" + DbName + "?retryWrites=true&w=majority"
+
 
     mongoose.connect(dbURI)
         .then(result => { console.log("Connected to the db") })

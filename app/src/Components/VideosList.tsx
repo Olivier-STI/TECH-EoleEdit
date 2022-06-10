@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import getUploadedVideos from "../Controllers/getUploadedVideos"
-
+import VideoPlayer from "./videoPlayer"
 
 //Function to parse the video path to get just the video name
 function getFilename(pathname : string) {
@@ -26,44 +26,39 @@ function DisplayOnCard(props : any) {
     )
 }
 
-
 //fucntion how display all the video list
-const VideoList = () => {
+const VideoList = (props : any) => {
     const  [listData, setlistData] = useState<any[]>([]);
-    const  [videoPath, setvideoPath] = useState('');
 
-    
     useEffect(() => {
         getUploadedVideos((result : any) => {
             if (result.data.status === 200) {
                 setlistData(result.data.data)
             }
         })
-        //Set interval to refresh the video list
-        const interval = setInterval(()=>{
-            getUploadedVideos((result : any) => {
-                if (result.data.status === 200) {
-                    setlistData(result.data.data)
-                }
-            })
-        },5000)
-             return()=>clearInterval(interval)
     }, []);
-    
-    function HandleCardOnClick(videoPath : string) {
-        setvideoPath(videoPath)
-        console.log(videoPath)
+
+    //function to choose the video user want play
+    function handleCardClick(videoPath : string) {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        //Add video name to the url
+        urlParams.set('video', getFilename(videoPath));
+        window.location.search = urlParams.toString();
     }
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-            {listData.map((data) => {
-                return (
-                    <DisplayOnCard Title={data.title} Description={data.description} Pathname={data.videoPath} CardOnClick={() => HandleCardOnClick(data.videoPath)}/>
-                )
-            })}
+        <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                {listData.map((data) => {
+                    return (
+                        <DisplayOnCard Title={data.title} Description={data.description} Pathname={data.videoPath} CardOnClick={() => handleCardClick(data.videoPath)}/>
+                    )
+                })}
+            </div>
         </div>
     )
+    
 }
 
 export default VideoList

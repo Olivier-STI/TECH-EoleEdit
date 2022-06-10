@@ -12,9 +12,11 @@ const useVideoPlayer = (videoElement : any) => {
     }
 
     useEffect(() => {
-        playing
-          ? videoElement.current.play()
-          : videoElement.current.pause();
+        if (videoElement.current) {
+            playing
+            ? videoElement.current.play()
+            : videoElement.current.pause();
+        }
     }, [playing, videoElement]);
 
     const handleOnTimeUpdate = () => {
@@ -37,11 +39,11 @@ const useVideoPlayer = (videoElement : any) => {
     };
     
     useEffect(() => {
-
-    setMuted(muted 
-        ? (videoElement.current.muted = true)
-        : (videoElement.current.muted = false))
-
+        if (videoElement.current) {
+        setMuted(muted 
+            ? (videoElement.current.muted = true)
+            : (videoElement.current.muted = false))
+        }
     }, [muted, videoElement]);
 
     return {
