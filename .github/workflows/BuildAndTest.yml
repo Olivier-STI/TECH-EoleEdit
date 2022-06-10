@@ -1,0 +1,23 @@
+name: Build & Test
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      
+      - name: Tests
+        run: cd app ; npm install
+        run: cd app ; npm run test
+
+
+     
