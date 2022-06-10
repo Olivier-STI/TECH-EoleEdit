@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react"
+import {useState, useEffect} from "react"
 import getUploadedVideos from "../Controllers/getUploadedVideos"
-import VideoPlayer from "./videoPlayer"
+import PlayButton from '../Assets/4.png'
 
 //Function to parse the video path to get just the video name
 function getFilename(pathname : string) {
@@ -11,16 +11,13 @@ function getFilename(pathname : string) {
 function DisplayOnCard(props : any) {
     return (
         <div style={{height : '10vh', width: '50vh', display: 'flex', flexDirection: 'row',
-                    backgroundColor: 'grey', alignItems: 'center', justifyContent: 'center',
-                    margin: '1vh'}} onClick={props.CardOnClick}>
-            <div style={{margin : '1vh'}}>
-                <text>{props.Title}</text>
-            </div>
-            <div style={{margin : '1vh'}}>
-                <text>{props.Description}</text>
-            </div>
-            <div style={{margin : '1vh'}}>
-                <text>{getFilename(props.Pathname)}</text>
+                    backgroundColor: 'black', alignItems: 'center', justifyContent: 'center',
+                    margin: '1vh', borderRadius:'5px', cursor:'pointer'}} onClick={props.CardOnClick}>   
+            <img alt='PlayButtonImage' style={{margin:'5%' }} src={PlayButton} height={'50px'} width={'50px'}/>
+            <div style={{margin:'5%' , backgroundColor : 'white', height:'3px', width:'30px' }} />
+            <div style={{display: 'flex', flexDirection: 'column', alignItems :'center', alignContent : 'center'}}>
+                <text style={{color: "white", fontSize: '25px'}}>{props.Title}</text>
+                <text style={{color: "white"}}>{props.Description}</text>
             </div>
         </div>
     )
@@ -47,18 +44,32 @@ const VideoList = (props : any) => {
         window.location.search = urlParams.toString();
     }
 
+    function ConditionalDisplay(data: any) {
+        if (data.length !== 0) {
+            return (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                    {listData.map((data) => {
+                        return (
+                            <DisplayOnCard Title={data.title} Description={data.description} Pathname={data.videoPath} CardOnClick={() => handleCardClick(data.videoPath)}/>
+                        )
+                    })}
+                    
+                </div>
+            )
+        } else {
+            return (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                    <text style={{fontWeight:'bold', fontStyle:'italic', fontSize : '40px'}} >
+                        Upload yout first video.
+                    </text>
+                </div>
+            )
+        }
+    }
+
     return (
-        <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                {listData.map((data) => {
-                    return (
-                        <DisplayOnCard Title={data.title} Description={data.description} Pathname={data.videoPath} CardOnClick={() => handleCardClick(data.videoPath)}/>
-                    )
-                })}
-            </div>
-        </div>
+        ConditionalDisplay(listData)
     )
-    
 }
 
 export default VideoList

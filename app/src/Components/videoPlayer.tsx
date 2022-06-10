@@ -15,14 +15,14 @@ const VideoPlayer = (props : any) => {
       let VideoName = params.get("video");
       if (VideoName != null)
         setVideoLink('http://' + host + ':' + Port + '/' + VideoName)
-    })
+    }, [])
     
     //Check if user already choose a video
     if (videoLink) {
         return (
           <div className="container">
             <div className="video-wrapper">
-              <video height={"800"} width={"800"}  ref={videoElement}  onTimeUpdate={handleOnTimeUpdate}>
+              <video ref={videoElement}  onTimeUpdate={handleOnTimeUpdate}>
                 <source src={videoLink} />
               </video>
               <div className="controls">
@@ -47,12 +47,16 @@ const VideoPlayer = (props : any) => {
             </div>
           </div>
         )
-       
       }
       // user dosn't choose video 
       else {
         return(
-          <text>Nothing to display</text>
+          <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '500px'}}>
+            <text style={{fontWeight:'bold', fontStyle:'italic', fontSize : '40px'}} >
+                Please, choose a video to see.
+            </text>
+
+          </div>
         )
       }
     

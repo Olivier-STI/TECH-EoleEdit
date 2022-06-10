@@ -3,7 +3,7 @@ import {host, Port} from '../Globals/metadata'
 
 
 //Request to upload the video to the server
-async function UploadVideoRequest(Title : string, Description : string, File : any) {
+async function UploadVideoRequest(Title : string, Description : string, File : any, callback : any) {
     var bodyFormDAta = new FormData();
 
     bodyFormDAta.append('video', File[0]);
@@ -19,8 +19,7 @@ async function UploadVideoRequest(Title : string, Description : string, File : a
         data: bodyFormDAta
     }).then((res) => {
         if (res.data.status === 200) {
-            //video uploaded
-            window.location.reload();
+            callback(true)
         }
         console.log(res);
     }).catch((err) => {
