@@ -60,7 +60,7 @@ const VideoList = (props : any) => {
             return (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
                     <text style={{fontWeight:'bold', fontStyle:'italic', fontSize : '40px'}} >
-                        Upload yout first video.
+                        Upload your first video.
                     </text>
                 </div>
             )
